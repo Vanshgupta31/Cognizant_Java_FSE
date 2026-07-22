@@ -1,0 +1,144 @@
+�	Demonstrate implementation of DML using Spring Data JPA on a single database table
+
+// Dependencies (pom.xml)
+
+<dependencies>
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>com.mysql</groupId>
+        <artifactId>mysql-connector-j</artifactId>
+        <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter</artifactId>
+    </dependency>
+
+</dependencies>
+
+//application.properties
+
+spring.datasource.url=jdbc:mysql://localhost:3306/librarydb
+spring.datasource.username=root
+spring.datasource.password=root
+
+spring.jpa.hibernate.ddl-auto=update
+
+spring.jpa.show-sql=true
+
+spring.jpa.properties.hibernate.format_sql=true
+
+// Student Entity
+
+package com.example.demo.entity;
+
+import jakarta.persistence.*;
+
+@Entity
+public class Student {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    private String name;
+
+    private String course;
+
+    public Student() {}
+
+    public Student(String name, String course) {
+        this.name = name;
+        this.course = course;
+    }
+
+    // Getters and Setters
+}
+
+// Repository
+
+package com.example.demo.repository;
+
+import com.example.demo.entity.Student;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface StudentRepository
+        extends JpaRepository<Student,Integer>{
+
+    List<Student> findByCourse(String course);
+
+}
+
+// Service
+
+package com.example.demo.service;
+
+import com.example.demo.entity.Student;
+import com.example.demo.repository.StudentRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class StudentService {
+
+    @Autowired
+    StudentRepository repository;
+
+    public void performOperations(){
+
+        // Insert
+        Student s=new Student("Rahul","Java");
+
+        repository.save(s);
+
+        // Find By Id
+        System.out.println(repository.findById(1));
+
+        // Query Method
+        System.out.println(repository.findByCourse("Java"));
+
+        // Delete
+        repository.deleteById(1);
+
+    }
+
+}
+
+// Main Class
+
+package com.example.demo;
+
+import com.example.demo.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class DemoApplication implements CommandLineRunner {
+
+    @Autowired
+    StudentService service;
+
+    public static void main(String[] args) {
+        SpringApplication.run(DemoApplication.class,args);
+    }
+
+    @Override
+    public void run(String... args) {
+
+        service.performOperations();
+
+    }
+
+}
+
+

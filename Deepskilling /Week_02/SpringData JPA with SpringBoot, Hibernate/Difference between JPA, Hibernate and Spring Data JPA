@@ -1,0 +1,13 @@
+JPA (Java Persistence API)
+
+JPA (Java Persistence API) is a Java specification that provides a standard approach for connecting Java applications with relational databases through Object-Relational Mapping (ORM). It allows developers to map Java classes to database tables using annotations like @Entity, @Table, and @Id. JPA also defines interfaces such as EntityManager for performing database operations. Since JPA is only a specification, it does not include its own implementation. To execute database-related tasks, it depends on a JPA provider such as Hibernate.
+
+
+Hibernate
+
+Hibernate is a widely used ORM framework that implements the JPA specification. It takes care of converting Java objects into database records and retrieving database data as Java objects. Hibernate automatically generates SQL queries, manages database sessions, handles transactions, supports caching, and performs common CRUD (Create, Read, Update, Delete) operations. Although Hibernate offers its own API, such as the Session interface, it is most commonly used as the JPA provider in Spring-based applications.
+
+Spring Data JPA
+
+Spring Data JPA is a Spring module that makes database development easier by building on top of JPA. It removes the need to write repetitive DAO or repository implementation code. Developers only need to create an interface that extends JpaRepository, and Spring Data JPA automatically provides implementations for standard operations like save(), findById(), findAll(), and deleteById(). It also supports features such as query generation from method names, pagination, sorting, and custom queries, making database interaction simpler, cleaner, and more efficient.
+
