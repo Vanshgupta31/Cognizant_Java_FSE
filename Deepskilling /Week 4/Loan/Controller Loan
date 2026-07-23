@@ -1,0 +1,22 @@
+@RestController
+@RequestMapping("/loans")
+public class LoanController {
+
+    @Autowired
+    LoanService service;
+
+    @GetMapping
+    public List<Loan> getLoans(){
+        return service.getLoans();
+    }
+
+    @GetMapping("/{id}")
+    public Loan getLoan(@PathVariable int id){
+        return service.getLoan(id);
+    }
+
+    @PostMapping
+    public Loan save(@RequestBody Loan loan){
+        return service.saveLoan(loan);
+    }
+}

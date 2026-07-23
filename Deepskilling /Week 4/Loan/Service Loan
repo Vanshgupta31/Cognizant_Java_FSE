@@ -1,0 +1,18 @@
+@Service
+public class LoanService {
+
+    @Autowired
+    LoanRepository repository;
+
+    public List<Loan> getLoans(){
+        return repository.findAll();
+    }
+
+    public Loan getLoan(int id){
+        return repository.findById(id).orElse(null);
+    }
+
+    public Loan saveLoan(Loan loan){
+        return repository.save(loan);
+    }
+}

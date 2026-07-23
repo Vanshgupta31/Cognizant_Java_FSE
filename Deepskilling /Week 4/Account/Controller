@@ -1,0 +1,22 @@
+@RestController
+@RequestMapping("/accounts")
+public class AccountController {
+
+    @Autowired
+    private AccountService service;
+
+    @GetMapping
+    public List<Account> getAccounts(){
+        return service.getAccounts();
+    }
+
+    @GetMapping("/{id}")
+    public Account getAccount(@PathVariable int id){
+        return service.getAccount(id);
+    }
+
+    @PostMapping
+    public Account save(@RequestBody Account account){
+        return service.save(account);
+    }
+}

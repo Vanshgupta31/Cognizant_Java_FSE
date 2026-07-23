@@ -1,0 +1,14 @@
+@Entity
+public class Account {
+
+    @Id
+    private int accountNumber;
+
+    private String accountHolderName;
+
+    private String accountType;
+
+    private double balance;
+
+    // getters setters
+}
